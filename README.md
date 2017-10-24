@@ -25,19 +25,19 @@ If two players have the same ranked hands then the rank made up of the highest v
 
 Consider the following five hands dealt to two players:
 
-Hand        Player 1        Player 2        Winner
-1       5H 5C 6S 7S KD     2C 3S 8S 8D TD   Player 2
-        Pair of Fives      Pair of Eights
-2       5D 8C 9S JS AC     2C 5C 7D 8S QH   Player 1
-        Highest card Ace   Highest card Queen
-3       2D 9C AS AH AC     3D 6D 7D TD QD   Player 2
-        Three Aces         Flush with Diamonds
-4       4D 6S 9H QH QC     3D 6D 7H QD QS   Player 1
-        Pair of Queens     Pair of Queens
-        Highest card Nine  Highest card Seven
-5       2H 2D 4C 4D 4S     3C 3D 3S 9S 9D   Player 1
-        Full House         Full House
-        With Three Fours   with Three Threes
+  Hand        Player 1        Player 2        Winner
+  1       5H 5C 6S 7S KD     2C 3S 8S 8D TD   Player 2
+          Pair of Fives      Pair of Eights
+  2       5D 8C 9S JS AC     2C 5C 7D 8S QH   Player 1
+          Highest card Ace   Highest card Queen
+  3       2D 9C AS AH AC     3D 6D 7D TD QD   Player 2
+          Three Aces         Flush with Diamonds
+  4       4D 6S 9H QH QC     3D 6D 7H QD QS   Player 1
+          Pair of Queens     Pair of Queens
+          Highest card Nine  Highest card Seven
+  5       2H 2D 4C 4D 4S     3C 3D 3S 9S 9D   Player 1
+          Full House         Full House
+          With Three Fours   with Three Threes
 
 The file, data/p054.poker.txt, contains one-thousand random hands dealt to two players. Each line of the file contains ten cards (separated by a single space): the first five are Player 1's cards and the last five are Player 2's cards. You can assume that all hands are valid (no invalid characters or repeated cards), each player's hand is in no specific order, and in each hand there is a clear winner.
 
