@@ -1,0 +1,85 @@
+open Option
+
+module IntPair =
+  struct
+    type t = int * int
+    let compare (x0,y0) (x1,y1) =
+      match Stdlib.compare y1 y0 with
+      | 0 -> Stdlib.compare x1 x0
+      | c -> c
+  end
+
+module PairsMap = Map.Make(IntPair)
+module IntSet = Map.Make(Int)
+
+let hand_size = 15 * 15 * 15 * 15 * 15
+let high_card = 0
+let one_pair = hand_size
+let two_pairs = 2 * hand_size
+let three_of_a_kind = 3 * hand_size
+let straight = 4 * hand_size
+let flush = 5 * hand_size
+let full_house = 6 * hand_size
+let four_of_a_kind = 7 * hand_size
+let straight_flush = 8 * hand_size
+
+let int_of_suit = function
+  | 'H' -> 0
+  | 'C' -> 1
+  | 'S' -> 2
+  | 'D' -> 3
+  | _ -> failwith "Invalid suit"
+
+let int_of_rank r =
+  match r with
+  | 'A' -> 14
+  | 'K' -> 13
+  | 'Q' -> 12
+  | 'J' -> 11
+  | 'T' -> 10
+  | '2' .. '9' -> (Char.code r) - (Char.code '0')
+  | _ -> failwith "Invalid rank"
+
+let parse_card s =
+  (int_of_rank s.(0), int_of_suit s.(1))
+
+let cards_value lst =
+  let rec loop lst acc =
+    match lst with
+    | [] -> acc
+    | x :: y -> loop y (acc * 15 + x)
+  in
+  loop lst 0
+
+let hand_value h =
+  let map_sum = function
+    | None -> Some 1
+    | Some n -> Some (n+1)
+  in
+  let hand_map = List.fold (PairsMap.update map_sum) PairsMap.empty h in
+  let first_count = snd (hd (PairsMap.to_list hand_map)) in
+  let ranks = List.map fst (PairsMap.to_list hand_map) in
+  let num_unique = PairsMap.cardinal hand_map in
+  let is_flush = 1 == IntSet.cardinal (IntSet.of_list (List.map snd h)) in
+  let is_straight = num_unique == 5 && (hd ranks) - (List.nth ranks 4) == 4 in
+  let rank_value = cards_value ranks in
+
+  let hand_type =
+    match num_unique with
+    | 5 when is_flush && is_straight -> straight_flush
+    | 5 when is_straight -> straight
+    | 5 when is_flush -> flush
+    | 5 -> high_card
+    | 4 -> one_pair
+    | 3 when first_count == 3 -> three_of_a_kind
+    | 3 -> two_pairs
+    | 2 when first_count == 4 -> four_of_a_kind
+    | 2 -> full_house
+    | _ -> failwith "invalid hand"
+  in
+  hand_type + rank_value
+
+let p1_wins str =
+  let cards = Str.
+    
+  
